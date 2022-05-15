@@ -7,7 +7,7 @@
 
 Приведите получившуюся команду или docker-compose манифест.
 
-```
+```yml
 version: '3.2'
 
 volumes:
@@ -49,7 +49,7 @@ postgres=#
 
 В БД из задачи 1:
 - создайте пользователя test-admin-user и БД test_db
-```
+```SQL
 postgres=# CREATE DATABASE test_db;
 CREATE DATABASE
 postgres=# CREATE ROLE "test-admin-user" SUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT LOGIN;
@@ -58,7 +58,7 @@ postgres=#
 ```
 
 - в БД test_db создайте таблицу orders и clients (спeцификация таблиц ниже)
-```
+```SQL
 
 test_db=# CREATE TABLE orders
 (
@@ -109,7 +109,7 @@ test_db=#
 - SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
 - список пользователей с правами над таблицами test_db
 
-```
+```SQL
 test_db=# CREATE ROLE "test-simple-user" NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT LOGIN;
 GRANT SELECT ON TABLE public.clients TO "test-simple-user";
 GRANT INSERT ON TABLE public.clients TO "test-simple-user";
@@ -191,7 +191,7 @@ test_db=#
 - приведите в ответе:
     - запросы
     - результаты их выполнения.
-```
+```SQL
 test_db=# insert into orders VALUES (1, 'Шоколад', 10), (2, 'Принтер', 3000), (3, 'Книга', 500), (4, 'Монитор', 7000), (5, 'Гитара', 4000);
 INSERT 0 5
 test_db=# insert into clients VALUES (1, 'Иванов Иван Иванович', 'USA'), (2, 'Петров Петр Петрович', 'Canada'), (3, 'Иоганн Себастьян Бах', 'Japan'), (4, 'Ронни Джеймс Дио', 'Russia'), (5, 'Ritchie Blackmore', 'Russia');
@@ -229,7 +229,7 @@ test_db=#
 
 Подсказк - используйте директиву `UPDATE`.
 
-```
+```SQL
 test_db=# UPDATE clients SET "booking"=(SELECT id FROM orders WHERE name='Книга') WHERE lastname='Иванов Иван Иванович';
 UPDATE clients SET "booking"=(SELECT id FROM orders WHERE name='Монитор') WHERE lastname='Петров Петр Петрович';
 UPDATE clients SET "booking"=(SELECT id FROM orders WHERE name='Гитара') WHERE lastname='Иоганн Себастьян Бах';
@@ -254,7 +254,7 @@ test_db=#
 
 Приведите получившийся результат и объясните что значат полученные значения.
 
-```
+```SQL
 test_db=# EXPLAIN SELECT c.lastname, o.name FROM clients c INNER JOIN orders o ON c.booking = o.id WHERE c.booking IS NOT NULL;
                                QUERY PLAN
 -------------------------------------------------------------------------
@@ -283,6 +283,6 @@ test_db=#
 
 Приведите список операций, который вы применяли для бэкапа данных и восстановления.
 
-```
+```bash
 
 ```
