@@ -300,6 +300,8 @@ Stopping db_postgres_1 ... done
 ....
 [root@homesrv db]# docker-compose -f ~/db/docker-compose.yml up -d
 Starting db_postgres_1 ... done
+```
+```SQL
 [root@homesrv db]# docker-compose exec postgres /bin/bash -c 'psql -p 5432 -h localhost -U postgres -d postgres < /var/lib/postgresql/backup/dump_15-05-2022_22_00_03.sql'
 SET
 SET
