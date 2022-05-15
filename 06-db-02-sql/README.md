@@ -284,5 +284,218 @@ test_db=#
 Приведите список операций, который вы применяли для бэкапа данных и восстановления.
 
 ```bash
+[root@homesrv _data]# docker exec -t db_postgres_1 pg_dumpall -c -U postgres  -p 5432 -h localhost -l test_db -f /var/lib/postgresql/backup/dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+[root@homesrv db]# docker-compose stop
+Stopping db_postgres_1 ... done
+[root@homesrv db]# cd /var/lib/docker/volumes/db_db_data/_data && rm -fvr ./*
+удалён «./base/1/1255»
+удалён «./base/1/1255_fsm»
+удалён «./base/1/1247»
+удалён «./base/1/1247_fsm»
+удалён «./base/1/1249»
+удалён «./base/1/1249_fsm»
+удалён «./base/1/1259»
+удалён «./base/1/2604»
+удалён «./base/1/2606»
+....
+[root@homesrv db]# docker-compose -f ~/db/docker-compose.yml up -d
+Starting db_postgres_1 ... done
+[root@homesrv db]# docker-compose exec postgres /bin/bash -c 'psql -p 5432 -h localhost -U postgres -d postgres < /var/lib/postgresql/backup/dump_15-05-2022_22_00_03.sql'
+SET
+SET
+SET
+ERROR:  database "test_db" does not exist
+ERROR:  current user cannot be dropped
+ERROR:  role "test-admin-user" does not exist
+ERROR:  role "test-simple-user" does not exist
+ERROR:  role "postgres" already exists
+ALTER ROLE
+CREATE ROLE
+ALTER ROLE
+CREATE ROLE
+ALTER ROLE
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
 
+(1 row)
+
+SET
+SET
+SET
+SET
+UPDATE 1
+DROP DATABASE
+CREATE DATABASE
+ALTER DATABASE
+You are now connected to database "template1" as user "postgres".
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
+
+(1 row)
+
+SET
+SET
+SET
+SET
+COMMENT
+ALTER DATABASE
+You are now connected to database "template1" as user "postgres".
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
+
+(1 row)
+
+SET
+SET
+SET
+SET
+REVOKE
+GRANT
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
+
+(1 row)
+
+SET
+SET
+SET
+SET
+DROP DATABASE
+CREATE DATABASE
+ALTER DATABASE
+You are now connected to database "postgres" as user "postgres".
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
+
+(1 row)
+
+SET
+SET
+SET
+SET
+COMMENT
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
+
+(1 row)
+
+SET
+SET
+SET
+SET
+CREATE DATABASE
+ALTER DATABASE
+You are now connected to database "test_db" as user "postgres".
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
+
+(1 row)
+
+SET
+SET
+SET
+SET
+SET
+SET
+CREATE TABLE
+ALTER TABLE
+CREATE TABLE
+ALTER TABLE
+COPY 5
+COPY 5
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+GRANT
+GRANT
+GRANT
+GRANT
+[root@homesrv db]# docker exec -it db_postgres_1 bash
+root@ed7e4b729683:/# psql -U postgres
+psql (12.10 (Debian 12.10-1.pgdg110+1))
+Type "help" for help.
+
+postgres=# \dt
+Did not find any relations.
+postgres=# \c test_db
+You are now connected to database "test_db" as user "postgres".
+test_db=# \dt
+          List of relations
+ Schema |  Name   | Type  |  Owner
+--------+---------+-------+----------
+ public | clients | table | postgres
+ public | orders  | table | postgres
+(2 rows)
+
+test_db=# \du
+                                       List of roles
+    Role name     |                         Attributes                         | Member of
+------------------+------------------------------------------------------------+-----------
+ postgres         | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+ test-admin-user  | Superuser, No inheritance                                  | {}
+ test-simple-user | No inheritance                                             | {}
+
+test_db=# SELECT * FROM information_schema.table_privileges WHERE grantee IN ('test-admin-user', 'test-simple-user');
+ grantor  |     grantee      | table_catalog | table_schema | table_name | privilege_type | is_grantable | with_hierarchy
+----------+------------------+---------------+--------------+------------+----------------+--------------+----------------
+ postgres | test-simple-user | test_db       | public       | clients    | INSERT         | NO           | NO
+ postgres | test-simple-user | test_db       | public       | clients    | SELECT         | NO           | YES
+ postgres | test-simple-user | test_db       | public       | clients    | UPDATE         | NO           | NO
+ postgres | test-simple-user | test_db       | public       | clients    | DELETE         | NO           | NO
+ postgres | test-admin-user  | test_db       | public       | clients    | INSERT         | YES          | NO
+ postgres | test-admin-user  | test_db       | public       | clients    | SELECT         | YES          | YES
+ postgres | test-admin-user  | test_db       | public       | clients    | UPDATE         | YES          | NO
+ postgres | test-admin-user  | test_db       | public       | clients    | DELETE         | YES          | NO
+ postgres | test-admin-user  | test_db       | public       | clients    | TRUNCATE       | YES          | NO
+ postgres | test-admin-user  | test_db       | public       | clients    | REFERENCES     | YES          | NO
+ postgres | test-admin-user  | test_db       | public       | clients    | TRIGGER        | YES          | NO
+ postgres | test-simple-user | test_db       | public       | orders     | INSERT         | NO           | NO
+ postgres | test-simple-user | test_db       | public       | orders     | SELECT         | NO           | YES
+ postgres | test-simple-user | test_db       | public       | orders     | UPDATE         | NO           | NO
+ postgres | test-simple-user | test_db       | public       | orders     | DELETE         | NO           | NO
+ postgres | test-admin-user  | test_db       | public       | orders     | INSERT         | YES          | NO
+ postgres | test-admin-user  | test_db       | public       | orders     | SELECT         | YES          | YES
+ postgres | test-admin-user  | test_db       | public       | orders     | UPDATE         | YES          | NO
+ postgres | test-admin-user  | test_db       | public       | orders     | DELETE         | YES          | NO
+ postgres | test-admin-user  | test_db       | public       | orders     | TRUNCATE       | YES          | NO
+ postgres | test-admin-user  | test_db       | public       | orders     | REFERENCES     | YES          | NO
+ postgres | test-admin-user  | test_db       | public       | orders     | TRIGGER        | YES          | NO
+(22 rows)
+
+test_db=#
 ```
