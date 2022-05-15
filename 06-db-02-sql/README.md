@@ -8,6 +8,29 @@
 Приведите получившуюся команду или docker-compose манифест.
 
 ```
+version: '3.2'
+
+volumes:
+  db_data:
+  db_backup:
+
+services:
+  postgres:
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - db_backup:/var/lib/postgresql/backups
+    ports:
+      - 5433:5432
+
+```
+
+
+```
 postgres=# \l
                                  List of databases
    Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges
