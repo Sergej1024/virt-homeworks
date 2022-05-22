@@ -20,7 +20,9 @@
 В следующих заданиях мы будем продолжать работу с данным контейнером.
 
 ```bash
-version: '3.1'
+version: '3.2'
+volumes:
+  db_data:
 services:
   mysql:
     image: mysql:8
@@ -31,7 +33,7 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - $HOME/Desktop/MySQL-Snippets/school.sql:/school.sql
+      - db_data:/var/lib/mysql
 ```
 
 ```SQL
