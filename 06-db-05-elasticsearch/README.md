@@ -14,19 +14,26 @@
 - запустите контейнер из получившегося образа и выполните запрос пути `/` c хост-машины
 
 Требования к `elasticsearch.yml`:
-- данные `path` должны сохраняться в `/var/lib` 
+- данные `path` должны сохраняться в `/var/lib`
 - имя ноды должно быть `netology_test`
 
 В ответе приведите:
 - текст Dockerfile манифеста
+```yml
+FROM elasticsearch:7.17.4
+ADD elasticsearch.yml /usr/share/elasticsearch/config/
+```
 - ссылку на образ в репозитории dockerhub
+[Ссылка на образ](https://hub.docker.com/repository/docker/sergej1024/elasticsearch)
 - ответ `elasticsearch` на запрос пути `/` в json виде
+
+
 
 Подсказки:
 - при сетевых проблемах внимательно изучите кластерные и сетевые настройки в elasticsearch.yml
 - при некоторых проблемах вам поможет docker директива ulimit
 - elasticsearch в логах обычно описывает проблему и пути ее решения
-- обратите внимание на настройки безопасности такие как `xpack.security.enabled` 
+- обратите внимание на настройки безопасности такие как `xpack.security.enabled`
 - если докер образ не запускается и падает с ошибкой 137 в этом случае может помочь настройка `-e ES_HEAP_SIZE`
 - при настройке `path` возможно потребуется настройка прав доступа на директорию
 
@@ -39,7 +46,7 @@
 - изучать состояние кластера
 - обосновывать причину деградации доступности данных
 
-Ознакомтесь с [документацией](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html) 
+Ознакомтесь с [документацией](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html)
 и добавьте в `elasticsearch` 3 индекса, в соответствии со таблицей:
 
 | Имя | Количество реплик | Количество шард |
@@ -69,14 +76,14 @@
 
 Создайте директорию `{путь до корневой директории с elasticsearch в образе}/snapshots`.
 
-Используя API [зарегистрируйте](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-register-repository.html#snapshots-register-repository) 
+Используя API [зарегистрируйте](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-register-repository.html#snapshots-register-repository)
 данную директорию как `snapshot repository` c именем `netology_backup`.
 
 **Приведите в ответе** запрос API и результат вызова API для создания репозитория.
 
 Создайте индекс `test` с 0 реплик и 1 шардом и **приведите в ответе** список индексов.
 
-[Создайте `snapshot`](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-take-snapshot.html) 
+[Создайте `snapshot`](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-take-snapshot.html)
 состояния кластера `elasticsearch`.
 
 **Приведите в ответе** список файлов в директории со `snapshot`ами.
@@ -84,17 +91,9 @@
 Удалите индекс `test` и создайте индекс `test-2`. **Приведите в ответе** список индексов.
 
 [Восстановите](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-restore-snapshot.html) состояние
-кластера `elasticsearch` из `snapshot`, созданного ранее. 
+кластера `elasticsearch` из `snapshot`, созданного ранее.
 
 **Приведите в ответе** запрос к API восстановления и итоговый список индексов.
 
 Подсказки:
 - возможно вам понадобится доработать `elasticsearch.yml` в части директивы `path.repo` и перезапустить `elasticsearch`
-
----
-
-### Как cдавать задание
-
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-
----
