@@ -83,9 +83,58 @@
 В виде результата этой задачи приложите вывод команды `terraform --version`.
 
 ```shell
-sudo yum install -y yum-utils
-sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-sudo yum -y install terraform
+[sergej@fedora ~]$ sudo dnf install -y dnf-plugins-core
+[sudo] пароль для sergej:
+Последняя проверка окончания срока действия метаданных: 0:42:02 назад, Ср 08 июн 2022 07:28:41.
+Пакет dnf-plugins-core-4.2.1-1.fc36.noarch уже установлен.
+Зависимости разрешены.
+Отсутствуют действия для выполнения.
+Выполнено!
+[sergej@fedora ~]$ sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+Добавление репозитория из: https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+[sergej@fedora ~]$ sudo dnf -y install terraform
+Hashicorp Stable - x86_64                                                                             148 kB/s | 696 kB     00:04    
+Последняя проверка окончания срока действия метаданных: 0:00:03 назад, Ср 08 июн 2022 08:15:35.
+Зависимости разрешены.
+======================================================================================================================================
+ Пакет                            Архитектура                   Версия                         Репозиторий                      Размер
+======================================================================================================================================
+Установка:
+ terraform                        x86_64                        1.2.2-1                        hashicorp                         13 M
+
+Результат транзакции
+======================================================================================================================================
+Установка  1 Пакет
+
+Объем загрузки: 13 M
+Объем изменений: 60 M
+Загрузка пакетов:
+terraform-1.2.2-1.x86_64.rpm                                                                          449 kB/s |  13 MB     00:29    
+--------------------------------------------------------------------------------------------------------------------------------------
+Общий размер                                                                                          449 kB/s |  13 MB     00:29     
+Hashicorp Stable - x86_64                                                                             2.2 kB/s | 3.1 kB     00:01    
+Импорт GPG-ключа 0xA3219F7B:
+Идентификатор пользователя:  "HashiCorp Security (HashiCorp Package Signing) <security+packaging@hashicorp.com>"
+Отпечаток: E8A0 32E0 94D8 EB4E A189 D270 DA41 8C88 A321 9F7B
+Источник:  https://rpm.releases.hashicorp.com/gpg
+Импорт ключа успешно завершен
+Проверка транзакции
+Проверка транзакции успешно завершена.
+Идет проверка транзакции
+Тест транзакции проведен успешно.
+Выполнение транзакции
+  Подготовка       :                                                                                                              1/1
+  Установка        : terraform-1.2.2-1.x86_64                                                                                     1/1
+  Проверка         : terraform-1.2.2-1.x86_64                                                                                     1/1
+
+Установлен:
+  terraform-1.2.2-1.x86_64                                                                                                            
+
+Выполнено!
+[sergej@fedora ~]$ terraform --version
+Terraform v1.2.2
+on linux_amd64
+[sergej@fedora ~]$
 ```
 
 ## Задача 3. Поддержка легаси кода.
@@ -98,10 +147,34 @@ sudo yum -y install terraform
 В виде результата этой задачи приложите вывод `--version` двух версий терраформа доступных на вашем компьютере
 или виртуальной машине.
 
----
+```shell
+[sergej@fedora ~]$ sudo mkdir -p /opt/terraform/0.15.5
+[sudo] пароль для sergej:
+[sergej@fedora ~]$ cd /opt/terraform/0.15.5
+[sergej@fedora 0.15.5]$ sudo wget https://releases.hashicorp.com/terraform/0.15.5/terraform_0.15.5_linux_amd64.zip
+--2022-06-08 08:38:49--  https://releases.hashicorp.com/terraform/0.15.5/terraform_0.15.5_linux_amd64.zip
+Подключение к 192.168.17.250:3128... соединение установлено.
+Proxy-запрос отправлен. Ожидание ответа… 200 OK
+Длина: 33043317 (32M) [application/zip]
+Сохранение в: «terraform_0.15.5_linux_amd64.zip»
 
-### Как cдавать задание
+terraform_0.15.5_linux_amd64.zip                            100%[=========================================================================================================================================>]  31,51M   195KB/s    за 2m 50s  
 
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
+2022-06-08 08:41:40 (190 KB/s) - «terraform_0.15.5_linux_amd64.zip» сохранён [33043317/33043317]
 
----
+[sergej@fedora 0.15.5]$ sudo unzip terraform_0.15.5_linux_amd64.zip
+Archive:  terraform_0.15.5_linux_amd64.zip
+  inflating: terraform               
+[sergej@fedora 0.15.5]$ sudo ln -s /opt/terraform/0.15.5/terraform /usr/bin/terraform15
+[sergej@fedora 0.15.5]$ sudo chmod +x /usr/bin/terraform15
+[sergej@fedora 0.15.5]$ terraform15 --version
+Terraform v0.15.5
+on linux_amd64
+
+Your version of Terraform is out of date! The latest version
+is 1.2.2. You can update by downloading from https://www.terraform.io/downloads.html
+[sergej@fedora 0.15.5]$ terraform --version
+Terraform v1.2.2
+on linux_amd64
+[sergej@fedora 0.15.5]$
+```
