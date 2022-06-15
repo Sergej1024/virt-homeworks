@@ -10,7 +10,44 @@
 [здесь](https://www.terraform.io/docs/backends/types/s3.html).
 1. Зарегистрируйте бэкэнд в терраформ проекте как описано по ссылке выше.
 
+```shell
+provider "yandex" {
+  token     = var.YC_TOKEN
+  cloud_id  = var.YC_CLOUD_ID
+  folder_id = var.YC_FOLDER_ID
+  zone      = var.YC_ZONE
+}
 
+resource "yandex_storage_bucket" "test" {
+  access_key = "YCAJE...6HmX8"
+  secret_key = "YCO9N...Yq9gj4Cl1GdSA1"
+  bucket = "backet-rse"
+}
+```
+Для использования прописываем вот так:
+
+```shell
+terraform {
+  required_providers {
+    yandex = {
+      source = "yandex-cloud/yandex"
+    }
+  }
+  required_version = ">= 0.13"
+
+  backend "s3" {
+    endpoint   = "storage.yandexcloud.net"
+    bucket     = "backet-rse"
+    region     = "ru-central1"
+    key        = ".terraform/terraform.tfstate"
+    access_key = "YCAJEwQdANa_nagUkLZz6HmX8"
+    secret_key = "YCO9N6WhuVCz0mCzRQRInrLR0IYq9gj4Cl1GdSA1"
+
+    skip_region_validation      = true
+    skip_credentials_validation = true
+  }
+}
+```
 ## Задача 2. Инициализируем проект и создаем воркспейсы.
 
 1. Выполните `terraform init`:
