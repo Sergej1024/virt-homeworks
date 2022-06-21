@@ -103,7 +103,7 @@ func main() {
 }
 ```
 <p align="center">
-  <img width="1200" height="600" src="./img/test2.png">
+  <img width="1200" src="./img/test2.png">
 </p>
 ## Задача 4. Протестировать код (не обязательно).
 
