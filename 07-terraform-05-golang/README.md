@@ -72,7 +72,18 @@ import "fmt"
 
 func main() {
 	x := []int{48, 96, 86, 68, 57, 82, 63, 70, 37, 34, 83, 27, 19, 97, 9, 17}
-	fmt.Println(x[len(x)-1])
+	n := 0
+	fmt.Println("Список значений : ", x)
+	for i, v := range x {
+		if i == 0 {
+			n = v
+		} else {
+			if v < n {
+				n = v
+			}
+		}
+	}
+	fmt.Println("Минимальное число : ", n)
 }
 ```
 <p align="center">
@@ -103,6 +114,7 @@ func main() {
 <p align="center">
   <img width="1200" src="./img/test2.png">
 </p>
+
 ## Задача 4. Протестировать код (не обязательно).
 
 Создайте тесты для функций из предыдущего задания.
