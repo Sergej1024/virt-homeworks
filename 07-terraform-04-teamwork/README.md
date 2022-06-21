@@ -14,6 +14,10 @@
 
 В качестве результата задания приложите снимок экрана с успешным применением конфигурации.
 
+<p align="center">
+  <img width="1200" height="600" src="./img/terraform_cloud.png">
+</p>
+
 ## Задача 2. Написать серверный конфиг для атлантиса.
 
 Смысл задания – познакомиться с документацией
@@ -33,6 +37,7 @@
 В качестве результата приложите ссылку на файлы `server.yaml` и `atlantis.yaml`.
 
 > [server.yaml](https://github.com/Sergej1024/virt-homeworks/tree/master/07-terraform-04-teamwork/src/server.yaml)
+>
 > [atlantis.yaml](https://github.com/Sergej1024/virt-homeworks/tree/master/07-terraform-04-teamwork/src/atlantis.yaml)
 
 ## Задача 3. Знакомство с каталогом модулей.
