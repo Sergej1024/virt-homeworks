@@ -130,8 +130,9 @@ func TestConvert(t *testing.T) {
 	if received != expected {
 		t.Errorf("Error, got: %f, want: %f", received, expected)
 	}
+}
 func TestMin(t *testing.T) {
-	array := []int {15, 20, 30, 40, 50, 10, 60, 777}
+	array := []int{15, 20, 30, 40, 50, 10, 60, 777}
 	expected_index := 5
 	expected_value := 10
 	received_index, received_value := min(array)
