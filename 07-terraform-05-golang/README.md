@@ -41,21 +41,45 @@ go version go1.18.3 linux/amd64
     }
     ```
 
+> [формула расчета](https://www.metric-conversions.org/ru/length/meters-to-feet.htm)
+
     ```go
     package main
 
     import "fmt"
 
     func main() {
-        fmt.Print("Enter a number: ")
-        var input float64
-        fmt.Scanf("%f", &input)
+    	fmt.Print("Enter a meters: ")
+    	var input float64
+    	fmt.Scanf("%f", &input)
 
-        output := input / 3.28
+    	output := input * 3.28
 
-        fmt.Println(output)    
+    	fmt.Println("Footage: ", output)
     }
     ```
+    При выполнении 4 задания возникла необхоимость в использовании именнованой функции.
+
+    ```go
+    package main
+
+    import "fmt"
+
+    func main() {
+    	fmt.Print("Enter a meters: ")
+    	var m float64
+    	fmt.Scanf("%f", &m)
+
+    	//output := input * 0.3048
+
+    	fmt.Println("Footage: ", convert(m))
+    }
+
+    func convert(m float64) float64 {
+    	return m * 3.28
+    }
+    ```
+
     <p align="center">
       <img width="1200" src="./img/fut.png">
     </p>
@@ -86,6 +110,35 @@ func main() {
 	fmt.Println("Минимальное число : ", n)
 }
 ```
+
+При выполнении 4 задания возникла необхоимость в использовании именнованой функции.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	x := []int{48, 96, 86, 68, 57, 82, 63, 70, 37, 34, 83, 27, 19, 97, 9, 17}
+
+	var index, value = min(x)
+	fmt.Println("Список значений : ", x)
+	fmt.Printf("Минимальное значение в x[%d] = %d\n", index, value)
+}
+
+func min(array []int) (min_index int, min_value int) {
+	min_index = 0
+	min_value = array[min_index]
+	for i, v := range array {
+		if v < min_value {
+			min_value = v
+			min_index = i
+		}
+	}
+	return
+}
+```
+
 <p align="center">
   <img width="1200" src="./img/test.png">
 </p>
@@ -132,9 +185,9 @@ func TestConvert(t *testing.T) {
 	}
 }
 func TestMin(t *testing.T) {
-	array := []int{15, 20, 30, 40, 50, 10, 60, 777}
-	expected_index := 5
-	expected_value := 10
+	array := []int{10, 15, 7, 40, 52, 12, 60, 777}
+	expected_index := 2
+	expected_value := 7
 	received_index, received_value := min(array)
 	if received_index != expected_index || received_value != expected_value {
 		t.Errorf("Error, got: %d, %d, want: %d, %d", received_index, received_value, expected_index, expected_value)
