@@ -43,7 +43,7 @@ go version go1.18.3 linux/amd64
 
 > [формула расчета](https://www.metric-conversions.org/ru/length/meters-to-feet.htm)
 
-    ```go
+  ```go
     package main
 
     import "fmt"
@@ -57,10 +57,10 @@ go version go1.18.3 linux/amd64
 
     	fmt.Println("Footage: ", output)
     }
-    ```
-    При выполнении 4 задания возникла необхоимость в использовании именнованой функции.
+  ```
+>  При выполнении 4 задания возникла необхоимость в использовании именнованой функции.
 
-    ```go
+  ```go
     package main
 
     import "fmt"
@@ -78,7 +78,7 @@ go version go1.18.3 linux/amd64
     func convert(m float64) float64 {
     	return m * 3.28
     }
-    ```
+  ```
 
     <p align="center">
       <img width="1200" src="./img/fut.png">
@@ -111,7 +111,7 @@ func main() {
 }
 ```
 
-При выполнении 4 задания возникла необхоимость в использовании именнованой функции.
+> При выполнении 4 задания возникла необхоимость в использовании именнованой функции.
 
 ```go
 package main
