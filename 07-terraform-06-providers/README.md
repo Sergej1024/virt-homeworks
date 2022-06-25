@@ -21,13 +21,13 @@
 
 1. Для создания очереди сообщений SQS используется ресурс `aws_sqs_queue` у которого есть параметр `name`.
     * С каким другим параметром конфликтует `name`? Приложите строчку кода, в которой это указано.
-> [ConflictsWith: []string{"name_prefix"},](https://github.com/hashicorp/terraform-provider-aws/blob/main/internal/service/sqs/queue.go#L87)
+        > [ConflictsWith: []string{"name_prefix"},](https://github.com/hashicorp/terraform-provider-aws/blob/main/internal/service/sqs/queue.go#L87)
 
     * Какая максимальная длина имени?
     * Какому регулярному выражению должно подчиняться имя?
-> [Максимальная длина имени с расширением ](https://github.com/hashicorp/terraform-provider-aws/blob/167536a0a72cd6294c7bd3eed85d36232e0d2ef5/internal/service/sqs/queue.go#L425)
->
-> [Максимальная длина имени без раширения](https://github.com/hashicorp/terraform-provider-aws/blob/167536a0a72cd6294c7bd3eed85d36232e0d2ef5/internal/service/sqs/queue.go#L427)
+        > [Максимальная длина имени с расширением ](https://github.com/hashicorp/terraform-provider-aws/blob/167536a0a72cd6294c7bd3eed85d36232e0d2ef5/internal/service/sqs/queue.go#L425)
+        >
+        > [Максимальная длина имени без раширения](https://github.com/hashicorp/terraform-provider-aws/blob/167536a0a72cd6294c7bd3eed85d36232e0d2ef5/internal/service/sqs/queue.go#L427)
 
 ## Задача 2. (Не обязательно)
 В рамках вебинара и презентации мы разобрали как создать свой собственный провайдер на примере кофемашины.
